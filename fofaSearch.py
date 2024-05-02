@@ -10,7 +10,7 @@ def fofa_search(search_data):
 
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     data = {
-        "key": "4efd9a21cc4f276101f51fac5f4bc31e",
+        "key": "fofa key",
         "qbase64": base64.b64encode(search_data.encode("UTF-8")),
         "fields": 'ip,port,city,host,os,server,title,jarm',
     }
@@ -24,7 +24,8 @@ def fofa_search(search_data):
     if data.get("error", True) is not False:
         print('fofa 请求失败，请检查配置')
         return False
-
+    
+    #将字典类型转换为字符串类型
     string_data = json.dumps(data, ensure_ascii=False)
 
     # 使用正则表达式匹配方括号内的内容并保留下来
@@ -34,10 +35,8 @@ def fofa_search(search_data):
     result = re.sub(r'\[', '\0', result)
 
     print(result)
-
-    # print(data)
     return True
 
 if __name__ == '__main__':
-    search_data = 'city="Nanjing" && host="cas.zzjc.edu.cn"'
+    search_data = '搜索语句'
     fofa_search(search_data)
